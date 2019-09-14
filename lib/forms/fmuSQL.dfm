@@ -24,13 +24,16 @@ inherited fmSQL: TfmSQL
       TabOrder = 0
       object lbLogin: TLabel
         AlignWithMargins = True
-        Left = 125
+        Left = 3
         Top = 3
-        Width = 3
-        Height = 13
+        Width = 125
+        Height = 23
         Align = alClient
         Alignment = taRightJustify
         Layout = tlCenter
+        ExplicitLeft = 125
+        ExplicitWidth = 3
+        ExplicitHeight = 13
       end
       object edLogin: TEdit
         AlignWithMargins = True
@@ -54,13 +57,16 @@ inherited fmSQL: TfmSQL
       TabOrder = 1
       object lbPassword: TLabel
         AlignWithMargins = True
-        Left = 125
+        Left = 3
         Top = 3
-        Width = 3
-        Height = 13
+        Width = 125
+        Height = 23
         Align = alClient
         Alignment = taRightJustify
         Layout = tlCenter
+        ExplicitLeft = 125
+        ExplicitWidth = 3
+        ExplicitHeight = 13
       end
       object edPassword: TEdit
         AlignWithMargins = True
@@ -93,13 +99,16 @@ inherited fmSQL: TfmSQL
       TabOrder = 0
       object lbServer: TLabel
         AlignWithMargins = True
-        Left = 125
+        Left = 3
         Top = 3
-        Width = 3
-        Height = 13
+        Width = 125
+        Height = 23
         Align = alClient
         Alignment = taRightJustify
         Layout = tlCenter
+        ExplicitLeft = 125
+        ExplicitWidth = 3
+        ExplicitHeight = 13
       end
       object btReloadServers: TSpeedButton
         AlignWithMargins = True
@@ -160,13 +169,16 @@ inherited fmSQL: TfmSQL
       TabOrder = 1
       object lbDB: TLabel
         AlignWithMargins = True
-        Left = 125
+        Left = 3
         Top = 3
-        Width = 3
-        Height = 13
+        Width = 125
+        Height = 23
         Align = alClient
         Alignment = taRightJustify
         Layout = tlCenter
+        ExplicitLeft = 125
+        ExplicitWidth = 3
+        ExplicitHeight = 13
       end
       object btReloadDBs: TSpeedButton
         AlignWithMargins = True

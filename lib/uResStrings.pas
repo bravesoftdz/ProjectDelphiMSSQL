@@ -3,8 +3,12 @@
 interface
 
 const
+  {Системные сообщения}
+  TSystem_InitCondsole = sLineBreak+'~> По всей видимости забыта инициализация!!!!'+sLineBreak+' Для формы: %s.%s (%s)'+sLineBreak;
+  TSystem_InitMsg      = 'По всей видимости забыта инициализация!!!!'+sLineBreak+sLineBreak+' Для формы: %s.%s (%s)';
+
   {Форма подключения и инициализации SQL Server}
-  TfmSQL_Form               = 'Настрйока подключения к базе данных';
+  TfmSQL_Form               = 'Настройка подключения к базе данных';
   TfmSQL_gbLoginAndPassword = 'Логин и пароль для подключения';
   TfmSQL_lbLogin            = 'Логин';
   TfmSQL_lbPassword         = 'Пароль';
@@ -12,12 +16,16 @@ const
   TfmSQL_lbServer           = 'SQL Server';
   TfmSQL_lbDB               = 'База данных';
   TfmSQL_cbServers          = 'Поле выбора или ввода сервера для подключений';
-  TfmSQL_edDB               = 'Поле для ввода название баззы данных';
+  TfmSQL_edDB               = 'Поле для ввода название базы данных';
   TfmSQL_btReloadServers    = 'Получить список доступных SQL Server в сети';
   TfmSQL_edLogin            = 'Поле для ввода логина';
   TfmSQL_edPassword         = 'Поле для ввода пароля пользователя';
-  TfmSQL_cbDB               = 'Поле выбора или ввода базаданных для подключений';
+  TfmSQL_cbDB               = 'Поле выбора или ввода базы данных для подключений';
   TfmSQL_btReloadDBs        = 'Получить список баз данных доступных на сервере';
+
+  {Главная форма}
+
+  TfmMain_Form = 'Главная форма';
 
 implementation
 

@@ -8,7 +8,8 @@ uses
   fmuBaseForm in 'lib\forms\fmuBaseForm.pas' {fmBaseForm},
   uiBase in 'lib\uiBase.pas',
   uSetting in 'lib\uSetting.pas',
-  uResStrings in 'lib\uResStrings.pas';
+  uResStrings in 'lib\uResStrings.pas',
+  uHelpUnit in 'lib\uHelpUnit.pas';
 
 {$R *.res}
 

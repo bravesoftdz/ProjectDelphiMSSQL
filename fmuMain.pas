@@ -9,9 +9,8 @@ uses
 type
   TfmMain = class(TfmBaseForm)
   private
-    { Private declarations }
   public
-    { Public declarations }
+    procedure FormInit; override;
   end;
 
 var
@@ -20,5 +19,16 @@ var
 implementation
 
 {$R *.dfm}
+
+uses
+  uResStrings;
+
+{ TfmMain }
+
+procedure TfmMain.FormInit;
+begin
+
+  Self.Caption := TfmMain_Form;
+end;
 
 end.

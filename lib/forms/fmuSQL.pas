@@ -45,7 +45,6 @@ uses
 
 procedure TfmSQL.FormInit;
 begin
-  inherited FormInit;
 
   Self.Caption                    := TfmSQL_Form;
   Self.gbLoginPassword.Caption    := TfmSQL_gbLoginAndPassword;

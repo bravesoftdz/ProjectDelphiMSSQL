@@ -116,6 +116,7 @@
         <DCCReference Include="lib\uiBase.pas"/>
         <DCCReference Include="lib\uSetting.pas"/>
         <DCCReference Include="lib\uResStrings.pas"/>
+        <DCCReference Include="lib\uHelpUnit.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -142,7 +143,7 @@
                 </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="Win32\Debug\Main.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="exe\Main.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>Main.exe</RemoteName>
                         <Overwrite>true</Overwrite>
