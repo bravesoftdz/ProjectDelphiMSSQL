@@ -3,23 +3,13 @@
 interface
 
 uses
-  FireDAC.Comp.Client;
+  uConnection;
 
 type
   THelpDB = class
   private
-    FConnection : TFDConnection;
-    FLogin: String;
-    FPassword: String;
-    FServer: String;
-    FDatabase: String;
   public
-    property Login: String read FLogin write FLogin;
-    property Password: String read FPassword write FPassword;
-    property Server: String read FServer write FServer;
-    property Database: String read FDatabase write FDatabase;
-
-    constructor Create;
+    constructor Create(oConnection : TConnection);
     procedure CreateDB(aFileName : String);
   end;
 

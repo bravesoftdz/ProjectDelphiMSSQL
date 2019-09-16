@@ -9,7 +9,8 @@ uses
   uiBase in 'lib\uiBase.pas',
   uSetting in 'lib\uSetting.pas',
   uResStrings in 'lib\uResStrings.pas',
-  uHelpUnit in 'lib\uHelpUnit.pas';
+  uHelpUnit in 'lib\uHelpUnit.pas',
+  uConnection in 'lib\uConnection.pas';
 
 {$R *.res}
 

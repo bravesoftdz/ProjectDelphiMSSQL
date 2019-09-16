@@ -3,7 +3,7 @@
 interface
 
 uses
-  REST.Json.Types;
+  REST.Json.Types, FireDAC.Comp.Client;
 
 type
   TSetting = class
@@ -16,6 +16,7 @@ type
     FServer: String;
     [JSONNameAttribute('DataBase')]
     FDatabase: String;
+    procedure Default;
   public
     property Login: String read FLogin write FLogin;
     property Password: String read FPassword write FPassword;
@@ -23,9 +24,22 @@ type
     property Database: String read FDatabase write FDatabase;
     function Load : Boolean;
     function Save : Boolean;
+    function CheckInputSQL : Boolean;
+  end;
+
+  TLog = class
+  private
+    FFile : TextFile;
+  public
+    constructor Create(aFileName : String);
+
+    procedure WriteLogQuery(aQuery : TFDQuery);
+    procedure WriteLogConnection(aConnection : TFDConnection);
+    destructor Destroy; override;
   end;
 
 function Setting : TSetting;
+function log : TLog;
 
 implementation
 
@@ -34,19 +48,54 @@ uses
 
 var
   sSettingFileName : String = '';
+  sLogFileName     : String = '';
+
   __Setting : TSetting = nil;
+  __Log : TLog = nil;
+
+function log : TLog;
+begin
+  if Not Assigned(__Log) then
+  begin
+    __Log := TLog.Create(sLogFileName);
+  end;
+  Result := __Log;
+end;
 
 function Setting : TSetting;
 begin
   if Not Assigned(__Setting) then
   begin
     __Setting := TSetting.Create;
-    __Setting.Load;
+    //Если при загрузке произошла ошибка ...
+    try
+      __Setting.Load;
+    except
+      //...заполняем значением по умолчанию
+      __Setting.Default;
+    end;
   end;
   Result := __Setting;
 end;
 
 { TSetting }
+
+function TSetting.CheckInputSQL: Boolean;
+begin
+  Result :=
+    (Login.Trim() <> '') and
+    (Password.Trim() <> '') and
+    (Server.Trim() <> '') and
+    (Database.Trim <> '')
+end;
+
+procedure TSetting.Default;
+begin
+  FLogin := 'sa';
+  FPassword := '';
+  FDatabase := '';
+  FServer := '';
+end;
 
 function TSetting.Load: Boolean;
 var
@@ -60,7 +109,6 @@ begin
     oFile := TStringStream.Create();
     try
       try
-        Result := False;
         oFile.LoadFromFile(sSettingFileName);
         oJSON := TJsonObject.ParseJSONValue(oFile.DataString);
         Result := (oJSON <> nil) and (oJSON is TJSONObject);
@@ -106,8 +154,33 @@ begin
   end;
 end;
 
+{ TLog }
+
+constructor TLog.Create(aFileName: String);
+begin
+  AssignFile(FFile, sLogFileName);
+  ReWrite(FFile);
+end;
+
+destructor TLog.Destroy;
+begin
+  CloseFile(FFile);
+  inherited;
+end;
+
+procedure TLog.WriteLogConnection(aConnection: TFDConnection);
+begin
+  Write(FFile, aConnection.Name);
+end;
+
+procedure TLog.WriteLogQuery(aQuery: TFDQuery);
+begin
+  Write(FFile, aQuery.Name);
+end;
+
 initialization
   sSettingFileName := ExtractFilePath(ParamStr(0))+'data\setting.txt';
+  sLogFileName := ExtractFilePath(ParamStr(0))+'data\log.txt';
 
 
 end.
