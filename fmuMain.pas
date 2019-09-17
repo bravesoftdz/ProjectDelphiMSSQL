@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fmuBaseForm;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fmuBaseForm, uConnection;
 
 type
   TfmMain = class(TfmBaseForm)
@@ -21,13 +21,12 @@ implementation
 {$R *.dfm}
 
 uses
-  uResStrings;
+  uResStrings, fmuSQL, uiBase;
 
 { TfmMain }
 
 procedure TfmMain.FormInit;
 begin
-
   Self.Caption := TfmMain_Form;
 end;
 

@@ -10,6 +10,7 @@ type
   private
     [JSONNameAttribute('Login')]
     FLogin: String;
+    [JSONMarshalledAttribute(False)]   //Не сохраняем пароли в файл
     [JSONNameAttribute('Password')]
     FPassword: String;
     [JSONNameAttribute('Server')]
@@ -27,40 +28,18 @@ type
     function CheckInputSQL : Boolean;
   end;
 
-  TLog = class
-  private
-    FFile : TextFile;
-  public
-    constructor Create(aFileName : String);
-
-    procedure WriteLogQuery(aQuery : TFDQuery);
-    procedure WriteLogConnection(aConnection : TFDConnection);
-    destructor Destroy; override;
-  end;
-
 function Setting : TSetting;
-function log : TLog;
 
 implementation
 
 uses
-  System.Classes, System.SysUtils, JSON, REST.Json;
+  System.Classes, System.SysUtils, JSON, REST.Json, uResStrings;
 
 var
   sSettingFileName : String = '';
   sLogFileName     : String = '';
 
   __Setting : TSetting = nil;
-  __Log : TLog = nil;
-
-function log : TLog;
-begin
-  if Not Assigned(__Log) then
-  begin
-    __Log := TLog.Create(sLogFileName);
-  end;
-  Result := __Log;
-end;
 
 function Setting : TSetting;
 begin
@@ -111,10 +90,14 @@ begin
       try
         oFile.LoadFromFile(sSettingFileName);
         oJSON := TJsonObject.ParseJSONValue(oFile.DataString);
-        Result := (oJSON <> nil) and (oJSON is TJSONObject);
-        if Result then
-        begin
-            TJson.JsonToObject(Self, oJSONObject);
+        try
+          Result := (oJSON <> nil) and (oJSON is TJSONObject);
+          if Result then
+          begin
+              TJson.JsonToObject(Self, oJSONObject);
+          end;
+        finally
+          FreeAndNil(oJSON);
         end;
       except on E : Exception do
         begin
@@ -154,33 +137,14 @@ begin
   end;
 end;
 
-{ TLog }
-
-constructor TLog.Create(aFileName: String);
-begin
-  AssignFile(FFile, sLogFileName);
-  ReWrite(FFile);
-end;
-
-destructor TLog.Destroy;
-begin
-  CloseFile(FFile);
-  inherited;
-end;
-
-procedure TLog.WriteLogConnection(aConnection: TFDConnection);
-begin
-  Write(FFile, aConnection.Name);
-end;
-
-procedure TLog.WriteLogQuery(aQuery: TFDQuery);
-begin
-  Write(FFile, aQuery.Name);
-end;
-
 initialization
   sSettingFileName := ExtractFilePath(ParamStr(0))+'data\setting.txt';
-  sLogFileName := ExtractFilePath(ParamStr(0))+'data\log.txt';
 
+finalization
+  if Assigned(__Setting) then
+  begin
+    __Setting.Save;
+    FreeAndNil(__Setting);
+  end;
 
 end.

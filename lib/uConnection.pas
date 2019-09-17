@@ -3,17 +3,19 @@ unit uConnection;
 interface
 
 uses
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, FireDAC.Stan.Def, FireDAC.Phys.MSSQL;
 
 type
   TConnection = class
   private
     FConnectSQL: TFDCOnnection;
+    procedure TryConnect;
   public
     constructor Create;
     destructor Destroy; override;
     property ConnectSQL: TFDCOnnection read FConnectSQL;
     function Connected : Boolean;
+    procedure Reload;
   end;
 
   TMyQuery = class(TInterfacedObject)
@@ -33,6 +35,9 @@ type
     function ExecSQL(aSQL : String = ''): Boolean;
   end;
 
+var
+  Connect: TConnection;
+
 implementation
 
 uses
@@ -43,26 +48,12 @@ uses
 function TConnection.Connected: Boolean;
 begin
   Result := FConnectSQL.Connected;
-  if Not Result then
-  begin
-    Log.WriteLogConnection(FConnectSQL);
-  end;
 end;
 
 constructor TConnection.Create;
 begin
   inherited Create;
-  FConnectSQL := TFDConnection.Create(nil);
-  if Setting.CheckInputSQL then
-  begin
-    FConnectSQL.Params.Values['User_Name']       := Setting.Login;
-    FConnectSQL.Params.Values['Password']        := Setting.Password;
-    FConnectSQL.Params.Values['Server']          := Setting.Server;
-    FConnectSQL.Params.Values['Database']        := Setting.Database;
-    FConnectSQL.Params.Values['ApplicationName'] := ExtractFileName(ParamStr(0))+'_TestProject';
-    FConnectSQL.Params.Values['DriverID']        := 'MSSQL';
-    Log.WriteLogConnection(FConnectSQL);
-  end;
+  TryConnect;
 end;
 
 destructor TConnection.Destroy;
@@ -73,6 +64,33 @@ begin
     FreeAndNil(FConnectSQL);
   end;
   inherited;
+end;
+
+procedure TConnection.Reload;
+begin
+  TryConnect;
+end;
+
+procedure TConnection.TryConnect;
+begin
+  if Not Assigned(FConnectSQL) then
+  begin
+    FConnectSQL := TFDConnection.Create(nil);
+  end;
+  FConnectSQL.Params.Clear;
+  if Setting.CheckInputSQL then
+  begin
+    FConnectSQL.Params.Values['User_Name']       := Setting.Login;
+    FConnectSQL.Params.Values['Password']        := Setting.Password;
+    FConnectSQL.Params.Values['Server']          := Setting.Server;
+    FConnectSQL.Params.Values['Database']        := Setting.Database;
+    FConnectSQL.Params.Values['ApplicationName'] := ExtractFileName(ParamStr(0))+'_TestProject';
+    FConnectSQL.Params.Values['DriverID']        := 'MSSQL';
+    try
+      FConnectSQL.Connected := True;
+    except
+    end;
+  end;
 end;
 
 { TMyQuery }
@@ -113,7 +131,6 @@ begin
   except on E: Exception do
     begin
       Result := False;
-      { TODO -oSACRED -cLOG : Добавить логирование неуспешного выполнения запроса }
     end;
   end;
 end;
@@ -126,7 +143,6 @@ begin
   except on E: Exception do
     begin
       Result := False;
-      Log.WriteLogQuery(FQuery);
     end;
   end;
 end;

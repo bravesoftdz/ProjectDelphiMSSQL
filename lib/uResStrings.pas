@@ -4,11 +4,14 @@ interface
 
 const
   {Системные сообщения}
-  TSystem_InitCondsole = sLineBreak+'~> По всей видимости забыта инициализация!!!!'+sLineBreak+' Для формы: %s.%s (%s)'+sLineBreak;
-  TSystem_InitMsg      = 'По всей видимости забыта инициализация!!!!'+sLineBreak+sLineBreak+' Для формы: %s.%s (%s)';
+  TSystem_InitCondsole     = sLineBreak+'~> По всей видимости забыта инициализация!!!!'+sLineBreak+' Для формы: %s.%s (%s)'+sLineBreak;
+  TSystem_InitMsg          = 'По всей видимости забыта инициализация!!!!'+sLineBreak+sLineBreak+' Для формы: %s.%s (%s)';
+  Application_ErrorMessage = 'Ошибка подключения к базе проверки корректность ввода и повторите попытку';
+
+  TLog_Connect = 'Имя подключения %s - (класс: %s) '+sLineBreak+'параметры:'+sLineBreak+'%s';
 
   {Форма подключения и инициализации SQL Server}
-  TfmSQL_Form               = 'Настройка подключения к базе данных';
+  TfmSQL_Form               = 'Настройка подключения';
   TfmSQL_gbLoginAndPassword = 'Логин и пароль для подключения';
   TfmSQL_lbLogin            = 'Логин';
   TfmSQL_lbPassword         = 'Пароль';
@@ -22,6 +25,8 @@ const
   TfmSQL_edPassword         = 'Поле для ввода пароля пользователя';
   TfmSQL_cbDB               = 'Поле выбора или ввода базы данных для подключений';
   TfmSQL_btReloadDBs        = 'Получить список баз данных доступных на сервере';
+  TfmSQL_acClose            = 'Закрыть';
+  TfmSQL_acConfirm          = 'Подключится';
 
   {Главная форма}
 

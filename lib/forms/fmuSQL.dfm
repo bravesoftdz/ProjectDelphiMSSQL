@@ -1,32 +1,37 @@
 inherited fmSQL: TfmSQL
-  ClientHeight = 184
-  ClientWidth = 327
+  ActiveControl = edPassword
+  BorderStyle = bsDialog
+  ClientHeight = 211
+  ClientWidth = 337
+  OnClose = FormClose
   ExplicitWidth = 343
-  ExplicitHeight = 223
+  ExplicitHeight = 240
   PixelsPerInch = 96
   TextHeight = 13
   object gbLoginPassword: TGroupBox
     AlignWithMargins = True
     Left = 3
     Top = 3
-    Width = 321
+    Width = 331
     Height = 81
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 321
     object paLogin: TPanel
       Left = 2
       Top = 15
-      Width = 317
+      Width = 327
       Height = 29
       Align = alTop
       BevelOuter = bvNone
       ShowCaption = False
       TabOrder = 0
+      ExplicitWidth = 317
       object lbLogin: TLabel
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 125
+        Width = 135
         Height = 23
         Align = alClient
         Alignment = taRightJustify
@@ -37,29 +42,31 @@ inherited fmSQL: TfmSQL
       end
       object edLogin: TEdit
         AlignWithMargins = True
-        Left = 134
+        Left = 144
         Top = 3
         Width = 180
         Height = 23
         Align = alRight
         TabOrder = 0
+        ExplicitLeft = 134
         ExplicitHeight = 21
       end
     end
     object paPassword: TPanel
       Left = 2
       Top = 44
-      Width = 317
+      Width = 327
       Height = 29
       Align = alTop
       BevelOuter = bvNone
       ShowCaption = False
       TabOrder = 1
+      ExplicitWidth = 317
       object lbPassword: TLabel
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 125
+        Width = 135
         Height = 23
         Align = alClient
         Alignment = taRightJustify
@@ -70,11 +77,12 @@ inherited fmSQL: TfmSQL
       end
       object edPassword: TEdit
         AlignWithMargins = True
-        Left = 134
+        Left = 144
         Top = 3
         Width = 180
         Height = 23
         Align = alRight
+        PasswordChar = #8226
         TabOrder = 0
         ExplicitHeight = 21
       end
@@ -84,24 +92,26 @@ inherited fmSQL: TfmSQL
     AlignWithMargins = True
     Left = 3
     Top = 90
-    Width = 321
+    Width = 331
     Height = 81
     Align = alTop
     TabOrder = 1
+    ExplicitWidth = 321
     object paServer: TPanel
       Left = 2
       Top = 15
-      Width = 317
+      Width = 327
       Height = 29
       Align = alTop
       BevelOuter = bvNone
       ShowCaption = False
       TabOrder = 0
+      ExplicitWidth = 317
       object lbServer: TLabel
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 125
+        Width = 135
         Height = 23
         Align = alClient
         Alignment = taRightJustify
@@ -112,7 +122,7 @@ inherited fmSQL: TfmSQL
       end
       object btReloadServers: TSpeedButton
         AlignWithMargins = True
-        Left = 291
+        Left = 301
         Top = 3
         Width = 23
         Height = 23
@@ -150,28 +160,30 @@ inherited fmSQL: TfmSQL
       end
       object cbServers: TComboBox
         AlignWithMargins = True
-        Left = 134
+        Left = 144
         Top = 3
         Width = 151
         Height = 21
         Align = alRight
         TabOrder = 0
+        ExplicitLeft = 134
       end
     end
     object paDB: TPanel
       Left = 2
       Top = 44
-      Width = 317
+      Width = 327
       Height = 29
       Align = alTop
       BevelOuter = bvNone
       ShowCaption = False
       TabOrder = 1
+      ExplicitWidth = 317
       object lbDB: TLabel
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 125
+        Width = 135
         Height = 23
         Align = alClient
         Alignment = taRightJustify
@@ -182,7 +194,7 @@ inherited fmSQL: TfmSQL
       end
       object btReloadDBs: TSpeedButton
         AlignWithMargins = True
-        Left = 291
+        Left = 301
         Top = 3
         Width = 23
         Height = 23
@@ -219,13 +231,50 @@ inherited fmSQL: TfmSQL
       end
       object cbDB: TComboBox
         AlignWithMargins = True
-        Left = 134
+        Left = 144
         Top = 3
         Width = 151
         Height = 21
         Align = alRight
         TabOrder = 0
+        ExplicitLeft = 134
       end
+    end
+  end
+  object Button1: TButton
+    AlignWithMargins = True
+    Left = 3
+    Top = 177
+    Width = 135
+    Height = 31
+    Action = actClose
+    Align = alLeft
+    TabOrder = 2
+    ExplicitLeft = 8
+    ExplicitHeight = 25
+  end
+  object Button2: TButton
+    AlignWithMargins = True
+    Left = 199
+    Top = 177
+    Width = 135
+    Height = 31
+    Action = actConfirm
+    Align = alRight
+    TabOrder = 3
+    ExplicitLeft = 194
+    ExplicitHeight = 25
+  end
+  object ActionList1: TActionList
+    OnUpdate = ActionList1Update
+    Left = 29
+    Top = 47
+    object actClose: TAction
+      OnExecute = actCloseExecute
+    end
+    object actConfirm: TAction
+      ShortCut = 13
+      OnExecute = actConfirmExecute
     end
   end
 end
