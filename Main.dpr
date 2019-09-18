@@ -10,8 +10,11 @@ uses
   uSetting in 'lib\uSetting.pas',
   uResStrings in 'lib\uResStrings.pas',
   uHelpUnit in 'lib\uHelpUnit.pas',
-  uConnection in 'lib\uConnection.pas', Vcl.Controls, System.SysUtils,
-  Vcl.Dialogs;
+  uConnection in 'lib\uConnection.pas',
+  Vcl.Controls,
+  System.SysUtils,
+  Vcl.Dialogs,
+  fmuConsumpion in 'lib\forms\fmuConsumpion.pas' {fmConsumpion};
 
 {$R *.res}
 
@@ -27,8 +30,9 @@ begin
   Connect := TConnection.Create;
   if Not Connect.Connected then
   begin
-    Application.CreateForm(TfmSQL, oConnectSQL);
-    if oConnectSQL.GetInterface(IBaseForm, oForm) then
+    Application.CreateForm(ToConnectSQL, oConnectSQL);
+  Application.CreateForm(TfmConsumpion, fmConsumpion);
+  if oConnectSQL.GetInterface(IBaseForm, oForm) then
     begin
       oForm.FormInit;
     end;

@@ -25,8 +25,8 @@ type
     cbDB: TComboBox;
     btReloadServers: TSpeedButton;
     btReloadDBs: TSpeedButton;
-    Button1: TButton;
-    Button2: TButton;
+    Button1: TSpeedButton;
+    Button2: TSpeedButton;
     ActionList1: TActionList;
     actClose: TAction;
     actConfirm: TAction;

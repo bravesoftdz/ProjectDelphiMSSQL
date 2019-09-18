@@ -118,6 +118,10 @@
         <DCCReference Include="lib\uResStrings.pas"/>
         <DCCReference Include="lib\uHelpUnit.pas"/>
         <DCCReference Include="lib\uConnection.pas"/>
+        <DCCReference Include="lib\forms\fmuConsumpion.pas">
+            <Form>fmConsumpion</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

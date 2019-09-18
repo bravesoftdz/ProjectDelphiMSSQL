@@ -3,7 +3,7 @@ unit uConnection;
 interface
 
 uses
-  FireDAC.Comp.Client, FireDAC.Stan.Def, FireDAC.Phys.MSSQL;
+  FireDAC.Comp.Client, FireDAC.Stan.Def, FireDAC.Phys.MSSQL, FireDAC.DApt, FireDAC.Comp.UI, FireDAC.Stan.Async;
 
 type
   TConnection = class
@@ -18,20 +18,24 @@ type
     procedure Reload;
   end;
 
-  TMyQuery = class(TInterfacedObject)
+  TMyQuery = class(TFDQuery)
+
+  end;
+
+  TSQuery = class(TInterfacedObject)
   private
-    FQuery : TFDQuery;
+    FQuery : TMyQuery;
     FSQL: String;
     FConnection: TConnection;
     procedure SetConnection(const Value: TConnection);
     procedure SetSQL(const Value: String);
   public
     constructor Create(aConnect : TConnection; aSQL : String); overload;
-    constructor Create; overload;
+    constructor Create(); overload;
     destructor Destroy; override;
     property Connection: TConnection read FConnection write SetConnection;
     property SQL: String read FSQL write SetSQL;
-    function Open(var vQuery: TFDQuery; aSQL : String = '') : Boolean;
+    function Open(var vQuery: TMyQuery; aSQL : String = '') : Boolean;
     function ExecSQL(aSQL : String = ''): Boolean;
   end;
 
@@ -41,7 +45,7 @@ var
 implementation
 
 uses
-  uSetting, System.SysUtils;
+  uSetting, System.SysUtils, FireDAC.UI.Intf, Vcl.Forms;
 
 { TConnection }
 
@@ -75,7 +79,8 @@ procedure TConnection.TryConnect;
 begin
   if Not Assigned(FConnectSQL) then
   begin
-    FConnectSQL := TFDConnection.Create(nil);
+    FConnectSQL := TFDConnection.Create(Application);
+    FConnectSQL.ResourceOptions.SilentMode := True;
   end;
   FConnectSQL.Params.Clear;
   if Setting.CheckInputSQL then
@@ -95,9 +100,9 @@ end;
 
 { TMyQuery }
 
-constructor TMyQuery.Create(aConnect: TConnection; aSQL: String);
+constructor TSQuery.Create(aConnect: TConnection; aSQL: String);
 begin
-  inherited Create;
+  Create();
   FConnection := aConnect;
   FSQL := aSQL;
   FQuery.SQL.Text := FSQL;
@@ -107,13 +112,13 @@ begin
   end;
 end;
 
-constructor TMyQuery.Create;
+constructor TSQuery.Create;
 begin
   inherited Create;
-  FQuery := TFDQuery.Create(nil);
+  FQuery := TMyQuery.Create(nil);
 end;
 
-destructor TMyQuery.Destroy;
+destructor TSQuery.Destroy;
 begin
   if Assigned(FQuery) then
   begin
@@ -123,7 +128,7 @@ begin
   inherited;
 end;
 
-function TMyQuery.ExecSQL(aSQL: String): Boolean;
+function TSQuery.ExecSQL(aSQL: String): Boolean;
 begin
   try
     FQuery.ExecSQL(aSQL);
@@ -135,10 +140,11 @@ begin
   end;
 end;
 
-function TMyQuery.Open(var vQuery: TFDQuery; aSQL: String): Boolean;
+function TSQuery.Open(var vQuery: TMyQuery; aSQL: String): Boolean;
 begin
   try
     FQuery.Open(aSQL);
+    vQuery := FQuery;
     Result := True;
   except on E: Exception do
     begin
@@ -147,7 +153,7 @@ begin
   end;
 end;
 
-procedure TMyQuery.SetConnection(const Value: TConnection);
+procedure TSQuery.SetConnection(const Value: TConnection);
 begin
   if FConnection <> Value then
   begin
@@ -159,7 +165,7 @@ begin
   end;
 end;
 
-procedure TMyQuery.SetSQL(const Value: String);
+procedure TSQuery.SetSQL(const Value: String);
 begin
   if FSQL <> Value then
   begin

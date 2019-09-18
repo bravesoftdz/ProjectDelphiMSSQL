@@ -30,7 +30,28 @@ const
 
   {Главная форма}
 
-  TfmMain_Form = 'Главная форма';
+  TfmMain_Form           = 'Главная форма';
+  TfmMain_btClients      = 'Список клиентов';
+  TfmMain_btGoods        = 'Список товаров';
+  TfmMain_btAdd          = 'Добавить расход';
+  TfmMain_btEdit         = 'Изменить расход';
+  TfmMain_btDelete       = 'Удалить расход';
+  TfmMain_gbConsumpion   = 'Список расходов';
+  TfmMain_DateTimeCreate = 'Дата создания';
+  TfmMain_DateTimeDone   = 'Дата завершения';
+  TfmMain_DateTimeInsert = 'Дата добавления';
+  TfmMain_Sum            = 'Сумма расхода';
+  TfmMain_Done           = 'Состояние';
+  TfmMain_ClientName     = 'ФИО клиента';
+  TfmMain_DoneOpen       = 'Открыт';
+  TfmMain_DoneClose      = 'Закрыт';
+
+  {Форма редактирование создания расхода}
+
+  TfmConsumpion_Form = 'Расход';
+  TfmConsumpion_FormTypeEdit = 'Редактирование';
+  TfmConsumpion_FormTypeCreate = 'Создание';
+
 
 implementation
 
