@@ -232,10 +232,8 @@ inherited fmMain: TfmMain
       OnExecute = actDeleteExecute
     end
     object actClients: TAction
-      OnExecute = actClientsExecute
     end
     object actGoods: TAction
-      OnExecute = actGoodsExecute
     end
   end
   object D: TDataSource

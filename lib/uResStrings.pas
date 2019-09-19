@@ -45,12 +45,33 @@ const
   TfmMain_ClientName     = 'ФИО клиента';
   TfmMain_DoneOpen       = 'Открыт';
   TfmMain_DoneClose      = 'Закрыт';
+  TfmMain_Delete         = 'Удалить расход "%d" ?';
 
   {Форма редактирование создания расхода}
 
-  TfmConsumpion_Form = 'Расход';
-  TfmConsumpion_FormTypeEdit = 'Редактирование';
+  TfmConsumpion_Form           = 'Расход';
+  TfmConsumpion_FormTypeEdit   = 'Редактирование';
   TfmConsumpion_FormTypeCreate = 'Создание';
+  TfmConsumpion_FormCaption    = '%s - (%s)';
+  TfmConsumpion_btAdd          = 'Добавить товар';
+  TfmConsumpion_btEdit         = 'Изменить товар';
+  TfmConsumpion_btDelete       = 'Удалить товар';
+  TfmConsumpion_Delete         = 'Удалить товар "%d - (%s)" ?';
+
+  TConsumpionData_ID_FieldName        = 'ID';
+  TConsumpionData_GoodID              = 'Товар';
+  TConsumpionData_GoodID_FieldName    = 'GoodID';
+  TConsumpionData_GoodName            = 'Название';
+  TConsumpionData_GoodName_FieldName  = 'GoodName';
+  TConsumpionData_GoodCount           = 'Кол-во';
+  TConsumpionData_GoodCount_FieldName = 'GoodCount';
+  TConsumpionData_GoodPrice           = 'Цена за 1 ед.';
+  TConsumpionData_GoodPrice_FieldName = 'GoodPrice';
+  TConsumpionData_GoodSum             = 'Сумма';
+  TConsumpionData_GoodSum_FieldName   = 'GoodSum';
+  TConsumpionData_Delete_FieldName    = 'Delete';
+  TConsumpionData_Modif_FieldName     = 'Modif';
+  TConsumpionData_New_FieldName       = 'New';
 
 
 implementation

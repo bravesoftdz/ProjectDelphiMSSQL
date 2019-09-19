@@ -37,6 +37,8 @@ type
     property SQL: String read FSQL write SetSQL;
     function Open(var vQuery: TMyQuery; aSQL : String = '') : Boolean;
     function ExecSQL(aSQL : String = ''): Boolean;
+    property Query: TMyQuery read FQuery;
+    procedure RefreshData;
   end;
 
 var
@@ -45,7 +47,7 @@ var
 implementation
 
 uses
-  uSetting, System.SysUtils, FireDAC.UI.Intf, Vcl.Forms;
+  uSetting, System.SysUtils, FireDAC.UI.Intf, Vcl.Forms, Data.DB;
 
 { TConnection }
 
@@ -149,6 +151,34 @@ begin
   except on E: Exception do
     begin
       Result := False;
+    end;
+  end;
+end;
+
+procedure TSQuery.RefreshData;
+var
+  oQuery: TMyQuery;
+  bRestore: Boolean;
+  oField: TField;
+  iID: Integer;
+begin
+  bRestore := False;
+  iID := -1;
+  if (Self.FQuery <> nil) and (Self.FQuery.Active) then
+  begin
+    oField := Self.FQuery.FieldByName('ID');
+    if oField <> nil then
+    begin
+      iID := oField.AsInteger;
+      bRestore := True;
+    end;
+  end;
+
+  if Self.Open(oQuery) then
+  begin
+    if bRestore then
+    begin
+      oQuery.Locate('ID', iID);
     end;
   end;
 end;

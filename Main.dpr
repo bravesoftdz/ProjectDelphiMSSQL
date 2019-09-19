@@ -14,7 +14,9 @@ uses
   Vcl.Controls,
   System.SysUtils,
   Vcl.Dialogs,
-  fmuConsumpion in 'lib\forms\fmuConsumpion.pas' {fmConsumpion};
+  fmuConsumpion in 'lib\forms\fmuConsumpion.pas' {fmConsumpion},
+  uMain in 'lib\uMain.pas',
+  uConsumpion in 'lib\uConsumpion.pas';
 
 {$R *.res}
 
@@ -30,9 +32,8 @@ begin
   Connect := TConnection.Create;
   if Not Connect.Connected then
   begin
-    Application.CreateForm(ToConnectSQL, oConnectSQL);
-  Application.CreateForm(TfmConsumpion, fmConsumpion);
-  if oConnectSQL.GetInterface(IBaseForm, oForm) then
+    Application.CreateForm(TfmSQL, oConnectSQL);
+    if oConnectSQL.GetInterface(IBaseForm, oForm) then
     begin
       oForm.FormInit;
     end;

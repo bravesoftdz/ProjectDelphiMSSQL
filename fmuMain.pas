@@ -5,7 +5,7 @@ interface
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, fmuBaseForm, uConnection, Data.DB, System.Actions, Vcl.ActnList,
-  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, fmuConsumpion, System.UITypes, FireDAC.Stan.Param;
 
 type
   TfmMain = class(TfmBaseForm)
@@ -25,8 +25,6 @@ type
     actClients: TAction;
     actGoods: TAction;
     procedure ActionList1Update(Action: TBasicAction; var Handled: Boolean);
-    procedure actGoodsExecute(Sender: TObject);
-    procedure actClientsExecute(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
     procedure actEditExecute(Sender: TObject);
     procedure actAddExecute(Sender: TObject);
@@ -45,38 +43,91 @@ implementation
 {$R *.dfm}
 
 uses
-  uResStrings, fmuSQL, uiBase;
+  uResStrings, fmuSQL, uiBase, uMain, uConsumpion;
 
 { TfmMain }
 
 procedure TfmMain.actAddExecute(Sender: TObject);
+var
+  oConsumpion: TfmConsumpion;
+  oForm: IBaseForm;
 begin
   inherited;
-  { TODO : Добавить расход }
-end;
-
-procedure TfmMain.actClientsExecute(Sender: TObject);
-begin
-  inherited;
-  { TODO : Показать форму клиентов }
+  oConsumpion := TfmConsumpion.Create(Self);
+  if oConsumpion.GetInterface(IBaseForm, oForm) then
+  begin
+    oConsumpion.Data := nil;
+    oForm.FormInit;
+  end;
+  oConsumpion.ShowModal;
+  ActionModif(oConsumpion.Data);
+  oConsumpion.Data.Free;
+  FSQuery.RefreshData;
 end;
 
 procedure TfmMain.actDeleteExecute(Sender: TObject);
+var
+  oField: TField;
+  oSQuery: TSQuery;
 begin
   inherited;
-  { TODO : Удалить расход }
+  oField := D.DataSet.FindField('ID');
+  if oField <> nil then
+  begin
+    if MessageDlg(Format(TfmMain_Delete, [oField.AsInteger]), TMsgDlgType.mtConfirmation, [TMsgDlgBtn.mbNo, TMsgDlgBtn.mbYes], -1) = mrYes then
+    begin
+      oSQuery := TSQuery.Create(Connect, 'DELETE Consumpions WHERE ID = :ID');
+      try
+        oSQuery.Query.ParamByName('ID').AsInteger := oField.AsInteger;
+        if oSQuery.ExecSQL() then
+        begin
+          FSQuery.RefreshData;
+        end;
+      finally
+        FreeAndNil(oSQuery);
+      end;
+    end;
+  end;
 end;
 
 procedure TfmMain.actEditExecute(Sender: TObject);
+var
+  oConsumpion: TfmConsumpion;
+  oForm: IBaseForm;
+  oField: TField;
+  oSQuery: TSQuery;
 begin
   inherited;
-  { TODO : Редактировать расход }
-end;
-
-procedure TfmMain.actGoodsExecute(Sender: TObject);
-begin
-  inherited;
-  { TODO : Показать форму товаров }
+  oConsumpion := TfmConsumpion.Create(Self);
+  if oConsumpion.GetInterface(IBaseForm, oForm) then
+  begin
+    oConsumpion.Data := TConsumpionData.Create;
+    oField := D.DataSet.FindField('ClientID');
+    if oField <> nil then
+    begin
+      oConsumpion.Data.ClientID := oField.AsInteger;
+    end;
+    oField := D.DataSet.FindField('Done');
+    if oField <> nil then
+    begin
+      oConsumpion.Data.Done := oField.AsInteger = 1;
+    end;
+    oField := D.DataSet.FindField('ID');
+    if oField <> nil then
+    begin
+      oSQuery := GetListConsumpionComposition(oField.AsInteger);
+      try
+        oConsumpion.Data.LoadFromQuery(oSQuery);
+      finally
+        FreeAndNil(oSQuery);
+      end;
+    end;
+    oForm.FormInit;
+  end;
+  oConsumpion.ShowModal;
+  ActionModif(oConsumpion.Data);
+  oConsumpion.Data.Free;
+  FSQuery.RefreshData;
 end;
 
 procedure TfmMain.ActionList1Update(Action: TBasicAction; var Handled: Boolean);
@@ -115,6 +166,7 @@ begin
     'SELECT '+sLineBreak+
     '  c.ID, '+sLineBreak+
     '  cl.Name, '+sLineBreak+
+    '  c.ClientID, '+sLineBreak+
     '  c.DateTimeCreate, '+sLineBreak+
     '  c.DateTimeDone, '+sLineBreak+
     '  c.DateTimeInsert, '+sLineBreak+
