@@ -1,30 +1,30 @@
 inherited fmConsumpion: TfmConsumpion
   ClientHeight = 615
   ClientWidth = 991
+  OnClose = FormClose
   ExplicitWidth = 1007
   ExplicitHeight = 654
   PixelsPerInch = 96
   TextHeight = 13
   object gbComposition: TGroupBox
     Left = 0
-    Top = 40
+    Top = 26
     Width = 991
-    Height = 575
+    Height = 589
     Align = alBottom
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
     object Panel1: TPanel
       Left = 2
-      Top = 532
+      Top = 505
       Width = 987
       Height = 41
       Align = alBottom
       BevelOuter = bvNone
       ShowCaption = False
       TabOrder = 0
-      ExplicitLeft = 320
-      ExplicitTop = 320
-      ExplicitWidth = 185
+      ExplicitLeft = 1
+      ExplicitTop = 549
       object btAdd: TSpeedButton
         AlignWithMargins = True
         Left = 3
@@ -142,7 +142,7 @@ inherited fmConsumpion: TfmConsumpion
       Left = 5
       Top = 18
       Width = 981
-      Height = 511
+      Height = 484
       Align = alClient
       DataSource = D
       Options = [dgTitles, dgColumnResize, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
@@ -153,17 +153,166 @@ inherited fmConsumpion: TfmConsumpion
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
     end
+    object Panel3: TPanel
+      Left = 2
+      Top = 546
+      Width = 987
+      Height = 41
+      Align = alBottom
+      BevelOuter = bvNone
+      ShowCaption = False
+      TabOrder = 2
+      ExplicitLeft = 3
+      ExplicitTop = 569
+      object SpeedButton1: TSpeedButton
+        AlignWithMargins = True
+        Left = 688
+        Top = 3
+        Width = 145
+        Height = 35
+        Action = actOk
+        Align = alRight
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000C30E0000C30E00000000000000000000FF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FF82AA4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF82AA4A82AA4A82
+          AA4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FF82AA4A82AA4A82AA4A82AA4A82AA4AFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF82AA4A82AA4A82AA4A82AA4A82
+          AA4A82AA4A82AA4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+          82AA4A82AA4A82AA4A82AA4A82AA4A82AA4A82AA4A82AA4A82AA4AFF00FFFF00
+          FFFF00FFFF00FFFF00FFFF00FF82AA4A82AA4A82AA4A82AA4A82AA4AFF00FF82
+          AA4A82AA4A82AA4A82AA4A82AA4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+          82AA4A82AA4A82AA4AFF00FFFF00FFFF00FF82AA4A82AA4A82AA4A82AA4A82AA
+          4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF82AA4AFF00FFFF00FFFF00FFFF
+          00FFFF00FF82AA4A82AA4A82AA4A82AA4A82AA4AFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF82AA4A82AA4A82AA
+          4A82AA4A82AA4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FF82AA4A82AA4A82AA4AFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF82AA
+          4AFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF
+          FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00
+          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF
+          00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF}
+        ExplicitTop = 6
+      end
+      object SpeedButton2: TSpeedButton
+        AlignWithMargins = True
+        Left = 839
+        Top = 3
+        Width = 145
+        Height = 35
+        Action = actCancel
+        Align = alRight
+        Glyph.Data = {
+          36030000424D3603000000000000360000002800000010000000100000000100
+          18000000000000030000C30E0000C30E00000000000000000000FF00FFFF00FF
+          FF00FFFF00FFFF00FF8592D55367CE3951CB3850CB4F64CE7E8DD4FF00FFFF00
+          FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF8B97D62C46C92540C92540C925
+          40C92540C92540C92540C92843C97E8CD4FF00FFFF00FFFF00FFFF00FFFF00FF
+          7080D22540C92540C92540C92D46CA5468CF6073D0475DCD2540C92540C92540
+          C95E71D0FF00FFFF00FFFF00FF929DD62540C92540C92540C9566ACFFF00FFFF
+          00FFFF00FFFF00FFFF00FF4E63CE2540C92540C97C8BD4FF00FFFF00FF3049CA
+          2540C92540C92540C92641C9949FD7FF00FFFF00FFFF00FFFF00FFFF00FF4F63
+          CE2540C92843C9FF00FF929ED72540C92540C95D70D02B45C92540C92641C994
+          9FD7FF00FFFF00FFFF00FFFF00FFFF00FF2741C92540C97E8DD46275D02540C9
+          2741C9FF00FFADB4DA2B45C92540C92641C9949FD7FF00FFFF00FFFF00FFFF00
+          FF5267CE2540C94F63CE4C61CD2540C94359CCFF00FFFF00FFADB4DA2B45C925
+          40C92641C9949FD7FF00FFFF00FFFF00FF7584D32540C93850CB4D62CE2540C9
+          4B60CDFF00FFFF00FFFF00FFADB4DA2B45C92540C92641C9949FD7FF00FFFF00
+          FF7382D22540C93851CB6678D12540C9304ACAFF00FFFF00FFFF00FFFF00FFAD
+          B4DA2B45C92540C92641C9949FD7FF00FF4D62CE2540C95267CE9AA4D72540C9
+          2540C9A2ABD9FF00FFFF00FFFF00FFFF00FFADB4DA2B45C92540C92641C97686
+          D32540C92540C98592D5FF00FF364FCB2540C93850CBFF00FFFF00FFFF00FFFF
+          00FFFF00FFADB4DA2B45C92540C92540C92540C92C46C9FF00FFFF00FFA0A9D8
+          2540C92540C93850CBA6AED9FF00FFFF00FFFF00FFFF00FF818FD42540C92540
+          C92540C98B97D6FF00FFFF00FFFF00FF8491D52540C92540C92540C93951CB5E
+          71D06073D03E56CC2540C92540C92540C97081D2FF00FFFF00FFFF00FFFF00FF
+          FF00FFA0AAD8354ECB2540C92540C92540C92540C92540C92540C93049CA929E
+          D7FF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FFFF00FF9AA4D76879D14E
+          63CE4C62CE6375D1949FD7FF00FFFF00FFFF00FFFF00FFFF00FF}
+        ExplicitTop = 6
+      end
+    end
   end
   object Panel2: TPanel
     Left = 0
     Top = 0
     Width = 991
-    Height = 40
+    Height = 26
     Align = alClient
     BevelOuter = bvNone
     ShowCaption = False
     TabOrder = 1
-    ExplicitHeight = 129
+    ExplicitTop = -6
+    object lbDateCreate: TLabel
+      AlignWithMargins = True
+      Left = 3
+      Top = 3
+      Width = 158
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Layout = tlCenter
+      ExplicitTop = 0
+    end
+    object lbClient: TLabel
+      AlignWithMargins = True
+      Left = 274
+      Top = 3
+      Width = 158
+      Height = 23
+      Align = alLeft
+      Alignment = taRightJustify
+      AutoSize = False
+      Layout = tlCenter
+      ExplicitTop = 0
+    end
+    object dtDateCreate: TDateTimePicker
+      AlignWithMargins = True
+      Left = 167
+      Top = 3
+      Width = 101
+      Height = 20
+      Align = alLeft
+      Date = 43727.957186226850000000
+      Time = 43727.957186226850000000
+      TabOrder = 0
+      OnChange = dtDateCreateChange
+      ExplicitLeft = 119
+      ExplicitTop = 13
+      ExplicitHeight = 21
+    end
+    object cbDone: TCheckBox
+      AlignWithMargins = True
+      Left = 669
+      Top = 3
+      Width = 319
+      Height = 20
+      Align = alRight
+      TabOrder = 1
+      OnClick = cbDoneClick
+      ExplicitLeft = 274
+      ExplicitTop = 0
+    end
+    object cbClient: TComboBox
+      AlignWithMargins = True
+      Left = 438
+      Top = 3
+      Width = 145
+      Height = 21
+      Align = alLeft
+      Style = csDropDownList
+      Sorted = True
+      TabOrder = 2
+      OnChange = cbClientChange
+    end
   end
   object ActionList1: TActionList
     OnUpdate = ActionList1Update
@@ -173,9 +322,16 @@ inherited fmConsumpion: TfmConsumpion
       OnExecute = actAddExecute
     end
     object actEdit: TAction
+      OnExecute = actEditExecute
     end
     object actDelete: TAction
       OnExecute = actDeleteExecute
+    end
+    object actCancel: TAction
+      OnExecute = actCancelExecute
+    end
+    object actOk: TAction
+      OnExecute = actOkExecute
     end
   end
   object D: TDataSource

@@ -6,17 +6,35 @@ uses
   FireDAC.Comp.Client, uConnection;
 
 type
+  TClientData = class
+  private
+    FCaption: String;
+    FID: Integer;
+  public
+    constructor Create(aName : String; aID : Integer);
+    property Caption: String read FCaption write FCaption;
+    property ID: Integer read FID write FID;
+  end;
+
   TConsumpionData = class
   private
     FListGoods: TFDMemTable;
     FDone: Boolean;
     FClientID: Integer;
     FConsumpionID: Integer;
+    FDateCreate: TDateTime;
+    FDateTimeChange: Boolean;
+    FDoneChange: Boolean;
+    FClientIDChange: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
     property ConsumpionID: Integer read FConsumpionID write FConsumpionID;
     property Done: Boolean read FDone write FDone;
+    property ClientIDChange: Boolean read FClientIDChange write FClientIDChange;
+    property DateCreate: TDateTime read FDateCreate write FDateCreate;
+    property DateTimeChange: Boolean read FDateTimeChange write FDateTimeChange;
+    property DoneChange: Boolean read FDoneChange write FDoneChange;
     property ClientID: Integer read FClientID write FClientID;
     property ListGoods: TFDMemTable read FListGoods;
     procedure LoadFromQuery(aQuery : TSQuery);
@@ -35,6 +53,13 @@ var
   oStringField : TStringField;
   oIntField: TIntegerField;
 begin
+  DateTimeChange := False;
+  ClientIDChange := False;
+  DoneChange := False;
+  DateCreate := Date;
+  Done := False;
+  ClientID := -1;
+
   FListGoods := TFDMemTable.Create(nil);
 
   oIntField := TIntegerField.Create(FListGoods);
@@ -123,7 +148,7 @@ begin
       for i := 0 to aQuery.Query.FieldCount-1 do
       begin
         oField := FListGoods.FindField(aQuery.Query.Fields[i].FieldName);
-        if (oField <> nil) and (oField.DataType = aQuery.Query.Fields[i].DataType) then
+        if (oField <> nil) then
         begin
           oField.Value := aQuery.Query.Fields[i].Value;
         end;
@@ -142,6 +167,15 @@ begin
     aQuery.Query.Bookmark := oMark;
     aQuery.Query.EnableControls;
   end;
+end;
+
+{ TCleintData }
+
+constructor TClientData.Create(aName: String; aID: Integer);
+begin
+  inherited Create;
+  FID := aID;
+  FCaption := aName;
 end;
 
 end.

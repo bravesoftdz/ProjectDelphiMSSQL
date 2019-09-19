@@ -81,7 +81,6 @@ inherited fmMain: TfmMain
     Height = 421
     Anchors = [akLeft, akTop, akRight, akBottom]
     TabOrder = 0
-    ExplicitWidth = 741
     object DBGrid1: TDBGrid
       AlignWithMargins = True
       Left = 5
@@ -107,7 +106,6 @@ inherited fmMain: TfmMain
       BevelOuter = bvNone
       ShowCaption = False
       TabOrder = 1
-      ExplicitWidth = 737
       object btDelete: TSpeedButton
         AlignWithMargins = True
         Left = 305

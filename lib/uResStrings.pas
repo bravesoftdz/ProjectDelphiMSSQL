@@ -57,6 +57,11 @@ const
   TfmConsumpion_btEdit         = 'Изменить товар';
   TfmConsumpion_btDelete       = 'Удалить товар';
   TfmConsumpion_Delete         = 'Удалить товар "%d - (%s)" ?';
+  TfmConsumpion_cbDone         = 'Выполнен ?';
+  TfmConsumpion_lbDateCreate   = 'Дата создания';
+  TfmConsumpion_btCancel       = 'Отменить';
+  TfmConsumpion_btOk           = 'Записать';
+  TfmConsumpion_lbClient       = 'Клиент';
 
   TConsumpionData_ID_FieldName        = 'ID';
   TConsumpionData_GoodID              = 'Товар';

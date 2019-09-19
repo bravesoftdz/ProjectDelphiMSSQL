@@ -59,8 +59,10 @@ begin
     oConsumpion.Data := nil;
     oForm.FormInit;
   end;
-  oConsumpion.ShowModal;
-  ActionModif(oConsumpion.Data);
+  if oConsumpion.ShowModal = mrOk then
+  begin
+    ActionModif(oConsumpion.Data);
+  end;
   oConsumpion.Data.Free;
   FSQuery.RefreshData;
 end;
@@ -115,6 +117,7 @@ begin
     oField := D.DataSet.FindField('ID');
     if oField <> nil then
     begin
+      oConsumpion.Data.ConsumpionID := oField.AsInteger;
       oSQuery := GetListConsumpionComposition(oField.AsInteger);
       try
         oConsumpion.Data.LoadFromQuery(oSQuery);
@@ -124,8 +127,10 @@ begin
     end;
     oForm.FormInit;
   end;
-  oConsumpion.ShowModal;
-  ActionModif(oConsumpion.Data);
+  if oConsumpion.ShowModal = mrOk then
+  begin
+    ActionModif(oConsumpion.Data);
+  end;
   oConsumpion.Data.Free;
   FSQuery.RefreshData;
 end;
