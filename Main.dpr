@@ -16,7 +16,9 @@ uses
   Vcl.Dialogs,
   fmuConsumpion in 'lib\forms\fmuConsumpion.pas' {fmConsumpion},
   uMain in 'lib\uMain.pas',
-  uConsumpion in 'lib\uConsumpion.pas';
+  uConsumpion in 'lib\uConsumpion.pas',
+  fmuConsumpionComposition in 'lib\forms\fmuConsumpionComposition.pas' {fmConsumpionComposition},
+  uConsumpionComposition in 'lib\uConsumpionComposition.pas';
 
 {$R *.res}
 

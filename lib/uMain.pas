@@ -11,7 +11,7 @@ procedure ActionModif(aData : TConsumpionData);
 implementation
 
 uses
-  Data.DB, uResStrings, System.SysUtils;
+  Data.DB, uResStrings, System.SysUtils, Winapi.Windows, Vcl.Dialogs;
 
 function GetListConsumpionComposition(aID : Integer) : TSQuery;
 var
@@ -49,6 +49,8 @@ var
   oSQLUpdate: TSQuery;
   sLineModif: String;
   bUpdate: Boolean;
+  oSQLConsumpionNew : TSQuery;
+  oQ: TMyQuery;
   procedure CheckAndDelete(aValue : Integer);
   begin
     if aValue = 1 then
@@ -116,6 +118,23 @@ var
     end;
   end;
 begin
+  if aData.New then
+  begin
+    oSQLConsumpionNew := TSQuery.Create(Connect, 'INSERT INTO Consumpions (Done) VALUES (0) SELECT SCOPE_IDENTITY() as ID');
+    try
+      if Not oSQLConsumpionNew.Open(oQ) then
+      begin
+        MessageDlg(uMain_Error, TMsgDlgType.mtError, [TMsgDlgBtn.mbOK], -1);
+        Exit;
+      end
+      else
+      begin
+        aData.ConsumpionID := oSQLConsumpionNew.Query.FieldByName('ID').AsInteger;
+      end;
+    finally
+      FreeAndNil(oSQLConsumpionNew);
+    end;
+  end;
   bUpdate := False;
   if aData.DateTimeChange then
   begin

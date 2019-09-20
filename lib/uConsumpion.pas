@@ -26,6 +26,7 @@ type
     FDateTimeChange: Boolean;
     FDoneChange: Boolean;
     FClientIDChange: Boolean;
+    FNew: Boolean;
   public
     constructor Create;
     destructor Destroy; override;
@@ -38,6 +39,7 @@ type
     property ClientID: Integer read FClientID write FClientID;
     property ListGoods: TFDMemTable read FListGoods;
     procedure LoadFromQuery(aQuery : TSQuery);
+    property New: Boolean read FNew write FNew;
   end;
 
 implementation
@@ -59,6 +61,7 @@ begin
   DateCreate := Date;
   Done := False;
   ClientID := -1;
+  FNew := False;
 
   FListGoods := TFDMemTable.Create(nil);
 

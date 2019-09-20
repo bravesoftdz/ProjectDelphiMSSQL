@@ -56,16 +56,60 @@ var
 implementation
 
 uses
-  uResStrings;
+  uResStrings, fmuConsumpionComposition, uiBase, uConsumpionComposition;
 
 {$R *.dfm}
 
 { TfmConsumpion }
 
 procedure TfmConsumpion.actAddExecute(Sender: TObject);
+var
+  oComposition: TfmConsumpionComposition;
+  oForm: IBaseForm;
+  oField: TField;
 begin
   inherited;
-  { TODO : Реализовать добавление товара }
+  oComposition := TfmConsumpionComposition.Create(Self);
+  if oComposition.GetInterface(IBaseForm, oForm) then
+  begin
+    oComposition.Data := nil;
+    oForm.FormInit;
+  end;
+  if oComposition.ShowModal = mrOk then
+  begin
+    D.DataSet.Append;
+    oField := D.DataSet.FindField('GoodName');
+    if oField <> nil then
+    begin
+      oField.AsString := oComposition.Data.Name;
+    end;
+    oField := D.DataSet.FindField('GoodID');
+    if oField <> nil then
+    begin
+      oField.AsInteger := oComposition.Data.GoodID;
+    end;
+    oField := D.DataSet.FindField('GoodCount');
+    if oField <> nil then
+    begin
+      oField.AsFloat := oComposition.Data.Count;
+    end;
+    oField := D.DataSet.FindField('GoodPrice');
+    if oField <> nil then
+    begin
+      oField.AsFloat := oComposition.Data.Price;
+    end;
+    oField := D.DataSet.FindField('GoodSum');
+    if oField <> nil then
+    begin
+      oField.AsFloat := oComposition.Data.Count * oComposition.Data.Price;
+    end;
+    D.DataSet.FieldByName(TConsumpionData_New_FieldName).Value    := 1;
+    D.DataSet.FieldByName(TConsumpionData_Delete_FieldName).Value := 0;
+    D.DataSet.FieldByName(TConsumpionData_Modif_FieldName).Value  := 0;
+    D.DataSet.Post;
+  end;
+  oComposition.Data.Free;
+  FreeAndNil(oComposition);
 end;
 
 procedure TfmConsumpion.actCancelExecute(Sender: TObject);
@@ -94,9 +138,66 @@ begin
 end;
 
 procedure TfmConsumpion.actEditExecute(Sender: TObject);
+var
+  oComposition: TfmConsumpionComposition;
+  oForm: IBaseForm;
+  oField: TField;
 begin
   inherited;
-  { TODO : Редактирование товара }
+  oComposition := TfmConsumpionComposition.Create(Self);
+  if oComposition.GetInterface(IBaseForm, oForm) then
+  begin
+    oComposition.Data := TCompositionData.Create;
+    oField := D.DataSet.FindField('ID');
+    if oField <> nil then
+    begin
+      oComposition.Data.ID := oField.AsInteger;
+    end;
+    oField := D.DataSet.FindField('GoodID');
+    if oField <> nil then
+    begin
+      oComposition.Data.GoodID := oField.AsInteger;
+    end;
+    oField := D.DataSet.FindField('GoodCount');
+    if oField <> nil then
+    begin
+      oComposition.Data.Count := oField.AsFloat;
+    end;
+    oField := D.DataSet.FindField('GoodPrice');
+    if oField <> nil then
+    begin
+      oComposition.Data.Price := oField.AsFloat;
+    end;
+    oForm.FormInit;
+  end;
+  if oComposition.ShowModal = mrOk then
+  begin
+    D.DataSet.Edit;
+    oField := D.DataSet.FindField('GoodID');
+    if oField <> nil then
+    begin
+      oField.AsInteger := oComposition.Data.GoodID;
+    end;
+    oField := D.DataSet.FindField('GoodCount');
+    if oField <> nil then
+    begin
+      oField.AsFloat := oComposition.Data.Count;
+    end;
+    oField := D.DataSet.FindField('GoodPrice');
+    if oField <> nil then
+    begin
+      oField.AsFloat := oComposition.Data.Price;
+    end;
+    oField := D.DataSet.FindField('GoodSum');
+    if oField <> nil then
+    begin
+      oField.AsFloat := oComposition.Data.Count * oComposition.Data.Price;
+    end;
+    D.DataSet.FieldByName(TConsumpionData_Modif_FieldName).Value := 1;
+    D.DataSet.Post;
+  end;
+  oComposition.Data.Free;
+  FreeAndNil(oComposition);
 end;
 
 procedure TfmConsumpion.ActionList1Update(Action: TBasicAction; var Handled: Boolean);
@@ -148,6 +249,21 @@ begin
     FreeAndNil(oItem);
   end;
   cbClient.Items.Clear;
+  if FData.New then
+  begin
+    if cbClient.ItemIndex <> -1 then
+    begin
+      FData.ClientID := TClientData(cbClient.Items.Objects[cbClient.ItemIndex]).ID;
+    end
+    else
+    begin
+      FData.ClientID := -1;
+      FData.ClientIDChange := False;
+    end;
+    FData.Done := cbDone.Checked;
+    FData.DateCreate := dtDateCreate.Date;
+
+  end;
   inherited;
 end;
 
@@ -163,6 +279,10 @@ begin
     Self.Caption := Format(TfmConsumpion_FormCaption, [TfmConsumpion_Form, TfmConsumpion_FormTypeCreate]);
     FData := TConsumpionData.Create;
     FData.ListGoods.Active := True;
+    FData.New := True;
+    FData.DateTimeChange := True;
+    FData.DoneChange := True;
+    FData.ClientIDChange := True;
   end
   else
   begin
