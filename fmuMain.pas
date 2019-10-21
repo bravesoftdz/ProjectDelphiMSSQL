@@ -117,6 +117,7 @@ begin
     oField := D.DataSet.FindField('ID');
     if oField <> nil then
     begin
+      oConsumpion.Data.ConsumpionID := oField.AsInteger;
       oSQuery := GetListConsumpionComposition(oField.AsInteger);
       try
         oConsumpion.Data.LoadFromQuery(oSQuery);

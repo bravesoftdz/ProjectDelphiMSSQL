@@ -23,8 +23,6 @@ type
     lbDB: TLabel;
     cbServers: TComboBox;
     cbDB: TComboBox;
-    btReloadServers: TSpeedButton;
-    btReloadDBs: TSpeedButton;
     Button1: TSpeedButton;
     Button2: TSpeedButton;
     ActionList1: TActionList;

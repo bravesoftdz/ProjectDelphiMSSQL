@@ -4,9 +4,11 @@ interface
 
 const
   {Системные сообщения}
-  TSystem_InitCondsole     = sLineBreak+'~> По всей видимости забыта инициализация!!!!'+sLineBreak+' Для формы: %s.%s (%s)'+sLineBreak;
-  TSystem_InitMsg          = 'По всей видимости забыта инициализация!!!!'+sLineBreak+sLineBreak+' Для формы: %s.%s (%s)';
-  Application_ErrorMessage = 'Ошибка подключения к базе проверки корректность ввода и повторите попытку';
+  TSystem_InitCondsole         = sLineBreak+'~> По всей видимости забыта инициализация!!!!'+sLineBreak+' Для формы: %s.%s (%s)'+sLineBreak;
+  TSystem_InitMsg              = 'По всей видимости забыта инициализация!!!!'+sLineBreak+sLineBreak+' Для формы: %s.%s (%s)';
+  Application_ErrorMessage     = 'Ошибка подключения к базе проверки корректность ввода и повторите попытку';
+  uMain_Error                  = 'Ошибка создания расхода';
+  uConsumpionComposition_Error = 'Ошибка создание позиции в списке расхода';
 
   TLog_Connect = 'Имя подключения %s - (класс: %s) '+sLineBreak+'параметры:'+sLineBreak+'%s';
 
@@ -59,6 +61,11 @@ const
   TfmConsumpion_btOk           = 'Сохранить';
   TfmConsumpion_btCancel       = 'Отменить';
   TfmConsumpion_Delete         = 'Удалить товар "%d - (%s)" ?';
+  TfmConsumpion_cbDone         = 'Выполнен ?';
+  TfmConsumpion_lbDateCreate   = 'Дата создания';
+  TfmConsumpion_btCancel       = 'Отменить';
+  TfmConsumpion_btOk           = 'Записать';
+  TfmConsumpion_lbClient       = 'Клиент';
 
   TConsumpionData_ID_FieldName        = 'ID';
   TConsumpionData_GoodID              = 'Товар';
@@ -74,6 +81,19 @@ const
   TConsumpionData_Delete_FieldName    = 'Delete';
   TConsumpionData_Modif_FieldName     = 'Modif';
   TConsumpionData_New_FieldName       = 'New';
+
+  {Форма редактирования состава расхода}
+
+  TfmConsumpionComposition_Form        = 'Состав расхода';
+  TfmConsumpionComposition_FormNew     = 'Создание';
+  TfmConsumpionComposition_FormEdit    = 'Редактирование';
+  TfmConsumpionComposition_FormCaption = '%s - (%s)';
+  TfmConsumpionComposition_lbCount     = 'Количество';
+  TfmConsumpionComposition_lbPrice     = 'Цена за 1 ед.';
+  TfmConsumpionComposition_lbGood      = 'Товар';
+  TfmConsumpionComposition_actCancel   = 'Отменить';
+  TfmConsumpionComposition_actOk       = 'Записать';
+
 
 
 implementation
