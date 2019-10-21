@@ -59,8 +59,10 @@ begin
     oConsumpion.Data := nil;
     oForm.FormInit;
   end;
-  oConsumpion.ShowModal;
-  ActionModif(oConsumpion.Data);
+  if oConsumpion.ShowModal = mrOk then
+  begin
+    ActionModif(oConsumpion.Data);
+  end;
   oConsumpion.Data.Free;
   FSQuery.RefreshData;
 end;
@@ -124,8 +126,10 @@ begin
     end;
     oForm.FormInit;
   end;
-  oConsumpion.ShowModal;
-  ActionModif(oConsumpion.Data);
+  if oConsumpion.ShowModal = mrOk then
+  begin
+    ActionModif(oConsumpion.Data);
+  end;
   oConsumpion.Data.Free;
   FSQuery.RefreshData;
 end;

@@ -1,0 +1,1 @@
+{"Login":"sa","Server":"DESKTOP-8CT2J3L\\SACRED_ID","DataBase":"testProject"}

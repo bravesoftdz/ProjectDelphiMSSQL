@@ -22,9 +22,17 @@ type
     btDelete: TSpeedButton;
     D: TDataSource;
     DBGrid1: TDBGrid;
+    Panel3: TPanel;
+    btOk: TSpeedButton;
+    btCancel: TSpeedButton;
+    actOk: TAction;
+    actCancel: TAction;
     procedure ActionList1Update(Action: TBasicAction; var Handled: Boolean);
     procedure actAddExecute(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
+    procedure actOkExecute(Sender: TObject);
+    procedure actCancelExecute(Sender: TObject);
+    procedure actEditExecute(Sender: TObject);
   private
     FData: TConsumpionData;
   public
@@ -51,6 +59,12 @@ begin
   { TODO : Реализовать добавление товара }
 end;
 
+procedure TfmConsumpion.actCancelExecute(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrCancel;
+end;
+
 procedure TfmConsumpion.actDeleteExecute(Sender: TObject);
 var
   oFieldGoodName: TField;
@@ -70,12 +84,24 @@ begin
   end;
 end;
 
+procedure TfmConsumpion.actEditExecute(Sender: TObject);
+begin
+  inherited;
+  { TODO : Добавить редактирование товара }
+end;
+
 procedure TfmConsumpion.ActionList1Update(Action: TBasicAction; var Handled: Boolean);
 begin
   inherited;
   actAdd.Enabled    := (D.DataSet <> nil) and (D.DataSet.Active);
   actEdit.Enabled   := (D.DataSet <> nil) and (D.DataSet.Active) and (D.DataSet.RecordCount > 0);
   actDelete.Enabled := (D.DataSet <> nil) and (D.DataSet.Active) and (D.DataSet.RecordCount > 0);
+end;
+
+procedure TfmConsumpion.actOkExecute(Sender: TObject);
+begin
+  inherited;
+  ModalResult := mrOk;
 end;
 
 procedure TfmConsumpion.FormInit;
@@ -93,6 +119,8 @@ begin
   Self.actAdd.Caption := TfmConsumpion_btAdd;
   Self.actEdit.Caption := TfmConsumpion_btEdit;
   Self.actDelete.Caption := TfmConsumpion_btDelete;
+  Self.actOk.Caption := TfmConsumpion_btOk;
+  Self.actCancel.Caption := TfmConsumpion_btCancel;
   D.DataSet := FData.ListGoods;
 end;
 
